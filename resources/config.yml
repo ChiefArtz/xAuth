@@ -1,5 +1,6 @@
 #xAuth config file.
 #Most of these setting are safe to configure, as long as you know what your doing.
+#xAuth has an config error checker that will fix most issues.
 
 #Type of authentication?
 # YML or MySQL?
