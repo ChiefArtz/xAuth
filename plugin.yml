@@ -3,7 +3,7 @@ author: xFlare
 main: xFlare\xAuth\Loader
 version: "1.0.0"
 api: [1.8.0]
-description: FlareHub Networks HG plugin.
+description: xAuth protects your server and adds authentication.
 commands:
     login:
         description: Login.
