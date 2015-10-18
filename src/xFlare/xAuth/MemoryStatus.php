@@ -1,6 +1,6 @@
 <?php
 
-#Helps servrer stay alive if it is laging.
+#Helps server stay alive if it is laging.
 use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat;
 use pocketmine\Player;
