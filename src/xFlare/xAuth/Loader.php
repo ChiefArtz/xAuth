@@ -1,7 +1,7 @@
 <?php
 
 #Loader for xAuth, loads up everything.
-namespace xFlare\FlareHub;
+namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat;
@@ -26,14 +26,14 @@ class Loader extends PluginBase implements Listener{
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
     if($this->getConfig()->get("database-checks") === true && $this->provider !== "mysql"){
-      $this->getServer()->getLogger()->info("§7[§cError§7] §eInvaild §ax§dAuth §econfig data§7!");
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3config data§7!");
       $this->getConfig()->set("data-checks", false);
       $this->getConfig()->save();
       $errors++;
     }
     if($errors !== 0){ //Will let console know about errors.
-        $this->getServer()->getLogger()->info("§7[§cError§7] §eInvaild §ax§dAuth §econfig data§7!");
-        $this->getServer()->getLogger()->info("§7[§ax§dAuth§7]" . $errors . "§cerrors have been found§7.\n§eWe tried to fix the§7, §ebut just in case review your config settings§7!");
+        $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3config data§7!");
+        $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
   }
