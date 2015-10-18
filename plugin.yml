@@ -7,5 +7,7 @@ description: xAuth protects your server and adds authentication.
 commands:
     login:
         description: Login.
+    register:
+        description: Register.
    
     
