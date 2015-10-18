@@ -2,7 +2,7 @@ name: xAuth
 author: xFlare
 main: xFlare\xAuth\Loader
 version: "1.0.0"
-api: [1.5.0]
+api: [1.8.0]
 description: FlareHub Networks HG plugin.
 commands:
     login:
