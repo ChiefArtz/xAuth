@@ -21,6 +21,8 @@ use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\entity\EntityShootBowEvent;
+use pocketmine\event\player\PlayerItemConsumeEvent;
 
 /*
 - 2 = Registered. (Implementing later...)
@@ -73,6 +75,21 @@ class LoginTasks implements Listener{
     public function onPvP(EntityDamageByEntityEvent $event){
         if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
+        }
+    }
+    public function onBowShoort(EntityShootBowEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+            $event->setCancelled(true);
+        }
+    }
+    public function onBowShoort(EntityShootBowEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+            $event->setCancelled(true);
+        }
+    }
+    public function onFoodEat(PlayerItemConsumeEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+            $event->setCancelled(true); //PlayerItemConsumeEvent;
         }
     }
 }
