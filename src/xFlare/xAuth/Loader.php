@@ -9,9 +9,9 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-class Main extends PluginBase implements Listener{
-  public function onEnable(){
+class Loader extends PluginBase implements Listener{
   public $loginmanager=array(); //Idividual player login statuses using arrays (sessions).
+  public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7...§6Loading §edata§7.");
     $this->saveDefaultConfig();
