@@ -2,7 +2,7 @@
 - xAuth, fully developed, 1.6 PocketMine-ready auth system.
 
 #Should I use this over SimpleAuth?
-- Yes & no. xAuth is more up to date and better protects your sevrver.
+- Yes & no. xAuth is more up to date and better protects your server.
 - SimpleAuth is much better at hashing passwords & xAuth is still in development!
 
 
