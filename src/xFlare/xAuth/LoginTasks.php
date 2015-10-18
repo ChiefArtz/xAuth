@@ -29,6 +29,14 @@ class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
     }
+    public function onJoin(PlayerJoinEvent $event){
+    	if($this->owner->provider === "yml"){
+ 
+    	}
+    	if($this->owner->provider === "mysql"){
+    	}
+    }
+
     public function onChat(PlayerChatEvent $event){
     	if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
     		$event->setCancelled(true);
@@ -36,9 +44,6 @@ class LoginTasks implements Listener{
     	elseif($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] !== $message){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
-    }
-    public function onJoin(PlayerJoinEvent $event){
-    	$this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
     }
 }
 
