@@ -35,61 +35,73 @@ class LoginTasks implements Listener{
         $this->plugin = $plugin;
     }
     public function onChat(PlayerChatEvent $event){
-    	if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+    	if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
     		$event->setCancelled(true);
     	}
-    	elseif($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] === $message){
+    	elseif($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] === $message){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
     }
     public function onDrop(PlayerDropItemEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onCommand(PlayerCommandPreprocessEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onInteract(PlayerInteractEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onMove(PlayerInteractEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0 && $this->owner->getConfig()->get("allow-movment") !== true){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0 && $this->owner->getConfig()->get("allow-movment") !== true){
             $event->setCancelled(true);
         }
     }
     public function onBreak(BlockBreakEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onPlace(BlockPlaceEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onPvP(EntityDamageByEntityEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onBowShoort(EntityShootBowEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onBowShoort(EntityShootBowEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
     public function onFoodEat(PlayerItemConsumeEvent $event){
-        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true); //PlayerItemConsumeEvent;
+        }
+    }
+    public function onJoin(PlayerJoinEvent $event){
+        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("player-join") !== true){
+            $this->setJoinMessage("");
+            $event->setCancelled(true);
+        }
+    }
+    public function onJoin(PlayerJoinEvent $event){
+        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("player-quit") !== true){
+            $this->setQuitMessage("");
+            $event->setCancelled(true);
         }
     }
 }
