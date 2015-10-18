@@ -10,13 +10,15 @@ allow-movment: false
 
 #Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
 #Only for MySQL
-use-async: true
+use-async: false
 
 #Enable database checks? (Recomended, checks every couple of ticks to make sure the database is onlie, errors, ect)
-database-checks: true
+#Only for MySQL
+database-checks: false
 
 #Cache logins? This will let you download mySQL data and put it in a YML, so next time the same player connects, the server won't have to query.
 #Disatvanatge: Removes ability to change password.
+#Only for MySQL
 cache-logins: false
 
 #Enable password changing? (Will be disabled if cache logins are enabled)
