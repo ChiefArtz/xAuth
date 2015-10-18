@@ -18,6 +18,7 @@ class Loader extends PluginBase implements Listener{
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Keeps track of auth status.
+    $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
     if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
