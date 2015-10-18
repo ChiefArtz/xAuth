@@ -36,6 +36,7 @@ class Loader extends PluginBase implements Listener{
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+    $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
   }
 }
     
