@@ -89,7 +89,7 @@ class LoginTasks implements Listener{
     }
     public function onFoodEat(PlayerItemConsumeEvent $event){
         if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
-            $event->setCancelled(true); //PlayerItemConsumeEvent;
+            $event->setCancelled(true);
         }
     }
     public function onJoin(PlayerJoinEvent $event){
