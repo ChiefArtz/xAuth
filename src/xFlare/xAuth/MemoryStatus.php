@@ -1,6 +1,8 @@
 <?php
 
 #Helps server stay alive if it is laging.
+namespace xFlare\xAuth;
+
 use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat;
 use pocketmine\Player;
@@ -13,12 +15,13 @@ class MemoryTasks implements Listener{
         $this->plugin = $plugin;
     }
     public function onRun($currentTick){
-    	if($this->getServer()->getTicksPerSecond() < 12){
-    		$this->owner->getLogger("> Warning, Server is overloaded! xAuth quries may take longer!\n> xAuth will try to reduce it's activity.");
-    		$this->owner->memorymanagerdata = 1;
-    	}
-    	elseif($this->memorymanagerdata !== 0){
-    		$this->owner->memeorymanagerdata = 0;
-    	}
+        if($this->owner->status === "enabled"){
+    	   if($this->getServer()->getTicksPerSecond() < 12){
+    		  $this->owner->getLogger("> Warning, Server is overloaded! xAuth quries may take longer!\n> xAuth will try to reduce it's activity.");
+    		  $this->owner->memorymanagerdata = 1;
+    	   }
+           elseif($this->memorymanagerdata !== 0){
+            $this->owner->memeorymanagerdata = 0;
+        }
     }
 }

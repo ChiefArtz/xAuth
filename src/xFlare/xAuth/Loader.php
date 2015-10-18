@@ -44,13 +44,13 @@ class Loader extends PluginBase implements Listener{
       $errors++;
     }
     if($errors !== 0){
+        $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3config data§7!");
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
-    $this->getConfig()->reload();
     $this->status = "enabled"; //Assuming errors have been fixed.
-    $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
+    $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
 }
     
