@@ -36,5 +36,6 @@ class Loader extends PluginBase implements Listener{
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7]" . $errors . "§cerrors have been found§7.\n§eWe tried to fix the§7, §ebut just in case review your config settings§7!");
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
+  }
 }
     
