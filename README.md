@@ -4,7 +4,8 @@
 #Should I use this over SimpleAuth?
 - Yes & no. xAuth is more up to date and better protects your sevrver.
 - SimpleAuth is much better at hashing passwords & xAuth is still in development!
-- 
+
+
 #Can I use xAuth now?
 - Yes! You can obviously use it, but that does not mean it's ready for production!
 
