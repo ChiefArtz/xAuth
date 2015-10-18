@@ -2,12 +2,10 @@
 #Most of these setting are safe to configure, as long as you know what your doing.
 #xAuth has an config error checker that will fix most issues.
 
+#------------[Authenticatin Settings]------------#
 #Type of authentication?
 # YML or MySQL?
 autentication-type: YML
-
-#Allow moving when loging in?
-allow-movment: false
 
 #Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
 #Only for MySQL
@@ -25,11 +23,23 @@ cache-logins: false
 #Enable password changing? (Will be disabled if cache logins are enabled)
 enable-pass-changing: true
 
+#------------[Authenticatin Settings]------------#
+
+
+#------------[Auth Events]------------#
+#Allow moving when loging in?
+allow-movment: false
+#------------[Auth Events]------------#
+
+
+#------------[General]------------#
 #Anounce player join? xAuth let's you choose weathe you want "player has joined the server"
 player-join: true
 
 #Anounce player quit? xAuth let's you choose weathe you want "player has left the server"
 player-quit: true
+#------------[General]------------#
 
-#Debug-mode? (Notice: You can't turn this off on beta releases from xauth.com)
+
+#Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
