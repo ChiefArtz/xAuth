@@ -18,11 +18,14 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 
 /*
 - 2 = Registered. (Implementing later...)
 - 1 = Logged in.
-- 0 = Not logged in.
+- 0 = Not logged in or registered.
 */
 
 class LoginTasks implements Listener{
@@ -54,6 +57,21 @@ class LoginTasks implements Listener{
     }
     public function onMove(PlayerInteractEvent $event){
         if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0 && $this->owner->getConfig()->get("allow-movment") !== true){
+            $event->setCancelled(true);
+        }
+    }
+    public function onBreak(BlockBreakEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+            $event->setCancelled(true);
+        }
+    }
+    public function onPlace(BlockPlaceEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+            $event->setCancelled(true);
+        }
+    }
+    public function onPvP(EntityDamageByEntityEvent $event){
+        if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
