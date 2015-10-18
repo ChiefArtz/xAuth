@@ -1,0 +1,23 @@
+#xAuth config file.
+#Most of these setting are safe to configure, as long as you know what your doing.
+
+#Type of authentication?
+# YML or MySQL?
+autentication-type: YML
+
+#Allow moving when loging in?
+allow-movment: false
+
+#Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
+#Only for MySQL
+use-async: true
+
+#Enable database checks? (Recomended, checks every couple of ticks to make sure the database is onlie, errors, ect)
+database-checks: true
+
+#Cache logins? This will let you download mySQL data and put it in a YML, so next time the same player connects, the server won't have to query.
+#Disatvanatge: Removes ability to change password.
+cache-logins: false
+
+#Enable password changing? (Will be disabled if cache logins are enabled)
+enable-pass-changing: true
