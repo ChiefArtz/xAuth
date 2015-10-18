@@ -21,6 +21,7 @@ class Loader extends PluginBase implements Listener{
     $this->debug = $this->getConfig()->get("debug-mode");
     if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
     }
     $this->checkForConfigErrors($this->getConfig()); //Will check for different config errors.
   }
