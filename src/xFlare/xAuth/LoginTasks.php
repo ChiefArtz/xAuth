@@ -1,6 +1,8 @@
 <?php
 
 #Stops people from doing stuff, when not logged in.
+namespace xFlare\xAuth;
+
 use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat;
 use pocketmine\Player;
@@ -15,6 +17,7 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\player\PlayerChatEvent;
 
 /*
 - 2 = Registered. (Implementing later...)
@@ -27,10 +30,10 @@ class LoginTasks implements Listener{
         $this->plugin = $plugin;
     }
     public function onChat(PlayerChatEvent $event){
-    	if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId] === 0){
+    	if($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
     		$event->setCancelled(true);
     	}
-    	elseif($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] !== $message){
+    	elseif($this->owner->status = "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] !== $message){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
     }
