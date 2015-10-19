@@ -41,7 +41,7 @@ class LoginAndRegister implements Listener{
         }
     }
     public function onChat(PlayerChatEvent $event){
-        if($this->owner->status === "enabled" and $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->owner->status === "enabled" and $this->owner->loginmanager[$event->getPlayer()->getId()] !== 1){
             if($this->owner->provider === "yml"){
                 //Manage login/register for provider.
             }
