@@ -58,7 +58,7 @@ class LoginAndRegister implements Listener{
             	elseif($this->owner->loginmanager[$event->getPlayer()->getId()] === $message){
             		$this->proccessPassword($message, 0);
             		$event->getPlayer()->sendMessage("You are now registered.");
-            		unset $this->owner->proccessmanager[$event->getPlayer()->getId()];
+            		unset($this->owner->proccessmanager[$event->getPlayer()->getId()]);
             	}
             }
             elseif($this->owner->provider === "mysql"){
