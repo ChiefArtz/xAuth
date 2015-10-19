@@ -1,6 +1,6 @@
 <?php
 
-#Stops people from doing stuff, when not logged in.
+#Stops people from doing stuff, when not logged in or registered.
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
