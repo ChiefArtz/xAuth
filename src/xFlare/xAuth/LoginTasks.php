@@ -71,16 +71,11 @@ class LoginTasks implements Listener{
             $event->setCancelled(true);
         }
     }
-    public function onPvP(EntityDamageByEntityEvent $event){
+ /*   public function onPvP(EntityDamageByEntityEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
-    }
-    public function onBowShoort(EntityShootBowEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
+    } */
     public function onBowShoot(EntityShootBowEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
