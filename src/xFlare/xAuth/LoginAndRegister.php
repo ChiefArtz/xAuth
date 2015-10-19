@@ -60,6 +60,15 @@ class LoginAndRegister implements Listener{
                 //Manage login/register for provider.
             }
         }
+        else{
+        	$ecr = $this->proccessPassword($event->getMessage(), 1);
+        	if($myuser->get("password") === $ecr){
+        		$event->getPlayer()->sendMessage("You are now logged in.");
+        	}
+        	else{
+        		$event->getPlayer()->sendMessage("Login failed.");
+        	}
+        }
     }
     private function proccessPassword($password, $type){
     	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
