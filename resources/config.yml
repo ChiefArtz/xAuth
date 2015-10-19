@@ -36,10 +36,10 @@ allow-movment: false
 
 
 #------------[General]------------#
-#Anounce player join? xAuth let's you choose weathe you want "player has joined the server"
+#Anounce player join? xAuth let's you choose whether you want "player has joined the server".
 player-join: true
 
-#Anounce player quit? xAuth let's you choose weathe you want "player has left the server"
+#Anounce player quit? xAuth let's you choose whether you want "player has left the server".
 player-quit: true
 #------------[General]------------#
 
