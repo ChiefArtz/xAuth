@@ -1,8 +1,8 @@
-# xAuth (1.0.0)
+# xAuth [Version: 1.0.0]
 - xAuth, fully developed, 1.6 PocketMine-ready auth system.
 
 # xAuth advantages over SimpleAuth
-- xAuth protects users more and stops some events that simple auth does not.
+- xAuth protects users more and stops some events that SimpleAuth does not.
 - xAuth does not have permission bugs.
 - You can choose what gets stoped if a player is not logged in.
 - More config options.
@@ -21,7 +21,7 @@
 - Yes! You can obviously use it, but that does not mean it's ready for production!
 
 #Can I contribute?
-- I encourage you too! Please try to use my coding style, overwise I may go crazy. :)
+- I encourage you too! Please try to use my coding style, otherwise I may go crazy.
 
 #Can you add support for other database types?
 - Only MySQL & YML will be supported. I don't reccomend using any other type of database format.
