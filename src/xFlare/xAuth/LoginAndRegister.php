@@ -31,7 +31,6 @@ class LoginAndRegister implements Listener{
         	if($myuser->get("myip") !=== $event->getPlayer()->getAddress()){
         		$event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
         		$event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
-        		return true;
         	}
         	else{
         		$this->chatmanager[$event->getPlayer()->getId()] = 1;
