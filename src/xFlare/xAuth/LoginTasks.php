@@ -82,7 +82,7 @@ class LoginTasks implements Listener{
             $event->setCancelled(true);
         }
     }
-    public function onBowShoort(EntityShootBowEvent $event){
+    public function onBowShoot(EntityShootBowEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
@@ -97,7 +97,7 @@ class LoginTasks implements Listener{
             $this->setJoinMessage("");
         }
     }
-    public function onJoin(PlayerJoinEvent $event){
+    public function onQuit(PlayerQuitEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-quit") !== true){
             $this->setQuitMessage("");
         }
