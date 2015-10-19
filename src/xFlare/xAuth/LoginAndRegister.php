@@ -23,8 +23,11 @@ class LoginAndRegister implements Listener{
         $this->plugin = $plugin;
     }
     public function onJoin(PlayerJoinEvent $event){
-        if($this->owner->status === "enabled"){
+        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") !== true){
             $this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
+        }
+        elseif($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") === true){
+        	//Auto login..
         }
     }
     public function onChat(PlayerChatEvent $event){
