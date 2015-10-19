@@ -33,6 +33,9 @@ class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
     }
+    public function getPlugin(){
+    	return $this->plugin;
+    }
     public function onChat(PlayerChatEvent $event){
     	if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
     		$event->setCancelled(true);
