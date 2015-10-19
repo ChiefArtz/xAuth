@@ -21,7 +21,8 @@ class MemoryTasks implements Listener{
     		  $this->owner->memorymanagerdata = 1;
     	   }
            elseif($this->memorymanagerdata !== 0){
-            $this->owner->memeorymanagerdata = 0;
+           	$this->owner->memeorymanagerdata = 0;
+           }
         }
     }
 }
