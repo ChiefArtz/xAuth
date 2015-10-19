@@ -1,6 +1,6 @@
 <?php
 
-#Stops people from doing stuff, when not logged in.
+#Loader for xAuth, loads up everything.
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
@@ -9,97 +9,54 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\event\player\PlayerDropItemEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\player\PlayerMoveEvent;
-use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\event\player\PlayerChatEvent;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\entity\EntityShootBowEvent;
-use pocketmine\event\player\PlayerItemConsumeEvent;
-
-/*
-- 2 = Registered. (Implementing later...)
-- 1 = Logged in.
-- 0 = Not logged in or registered.
-*/
-
-class LoginTasks implements Listener{
-	public function __construct(Loader $plugin){
-        $this->plugin = $plugin;
+class Loader extends PluginBase implements Listener{
+  public $loginmanager=array(); //Idividual player login statuses using arrays (sessions).
+  public $chatprotection=array();
+  public $proccessmanager=array();
+  public function onEnable(){
+    $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7...§6Loading §edata§7.");
+    $this->saveDefaultConfig();
+    $this->provider = strtolower($this->getConfig()->get("autentication-type"));
+    $this->status = null; //Keeps track of auth status.
+    $this->memorymanagerdata = 0;
+    $this->debug = $this->getConfig()->get("debug-mode");
+    $this->checkForConfigErrors($this->getConfig()); //Will check for different config errors.
+  }
+  public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
+    $errors = 0;
+    if($this->provider !== "mysql" || $this->provider !== "yml"){
+      $this->status = "failed";
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
+      $this->getServer()->shutdown();
     }
-    public function getPlugin(){
-    	return $this->plugin;
+    if($this->getConfig()->get("database-checks") === true && $this->provider !== "mysql"){
+      $this->getConfig()->set("data-checks", false);
+      $this->getConfig()->save();
+      $errors++;
     }
-    public function onChat(PlayerChatEvent $event){
-    	if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-    		$event->setCancelled(true);
-    	}
-    	elseif($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 1 && $this->owner->chatprotection[$event->getPlayer()->getId] === $message){
-    		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
-    	}
+    if($this->getConfig()->get("cache-logins") === true && $this->provider !== "mysql"){
+      $this->getConfig()->set("cache-logins", false);
+      $this->getConfig()->save();
+      $errors++;
     }
-    public function onDrop(PlayerDropItemEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-            $event->setCancelled(true);
-        }
+    if($this->getConfig()->get("cache-logins") === true && $this->getConfig()->get("enable-pass-changing") === true){
+      $this->getConfig()->set("enable-pass-changing", false);
+      $this->getConfig()->save();
+      $errors++;
     }
-    public function onCommand(PlayerCommandPreprocessEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-            $event->setCancelled(true);
-        }
+    if($errors !== 0){
+        $this->getConfig()->reload();
+        $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3config data§7!");
+        $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
-    public function onInteract(PlayerInteractEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-            $event->setCancelled(true);
-        }
+    $this->status = "enabled"; //Assuming errors have been fixed.
+    $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
+    if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
-    public function onMove(PlayerInteractEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0 && $this->owner->getConfig()->get("allow-movment") !== true){
-            $event->setCancelled(true);
-        }
-    }
-    public function onBreak(BlockBreakEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
-    public function onPlace(BlockPlaceEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
-    public function onPvP(EntityDamageByEntityEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
-    public function onBowShoort(EntityShootBowEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
-    public function onFoodEat(PlayerItemConsumeEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->loginmanager[$event->getEntity()->getId()] === 0){
-            $event->setCancelled(true);
-        }
-    }
-    public function onJoin(PlayerJoinEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("player-join") !== true){
-            $this->setJoinMessage("");
-            $event->setCancelled(true);
-        }
-    }
-    public function onQuit(PlayerQuitEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("player-quit") !== true){
-            $this->setQuitMessage("");
-            $event->setCancelled(true);
-        }
-    }
+    $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+  }
 }
-
+    
