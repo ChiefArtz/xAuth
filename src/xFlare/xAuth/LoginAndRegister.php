@@ -27,7 +27,17 @@ class LoginAndRegister implements Listener{
             $this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
         }
         elseif($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") === true){
-        	//Auto login..
+        	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+        	if($myuser->get("myip") !=== $event->getPlayer()->getAddress()){
+        		$event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
+        		$event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
+        		return true;
+        	}
+        	else{
+        		$this->chatmanager[$event->getPlayer()->getId()] = 1;
+        		$event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
+        		
+        	}
         }
     }
     public function onChat(PlayerChatEvent $event){
