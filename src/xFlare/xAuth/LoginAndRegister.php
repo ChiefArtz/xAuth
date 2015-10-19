@@ -23,42 +23,47 @@ class LoginAndRegister implements Listener{
         $this->plugin = $plugin;
     }
     public function onJoin(PlayerJoinEvent $event){
-    	if($this->owner->status === "enabled" and $this->provider === "yml"){
-        	if($this->owner->getConfig()->get("ip-auth") !== true){
-            		$this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
-        	}
-        	if($this->owner->getConfig()->get("ip-auth") === true){
-        		$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
-        		if($myuser->get("registered") !== true){
-        			$this->owner->proccessmanager[$event->getPlayer()->getId()] = 0;
-        			return true;
-        		}
-        	}
-        	if($myuser->get("myip") !== $event->getPlayer()->getAddress()){
-        		$event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
-        		$event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
-        	}
+    	if($this->plugin->status === "enabled" and $this->plugin->provider === "yml"){
+            $myuser = new Config($this->plugin->getDataFolder() . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+        	if(!$this->registered->exists(strtolower($event->getPlayer()->getName()))){
+        		$this->plugin->proccessmanager[$event->getPlayer()->getId()] = 0;
+                $event->getPlayer()->sendMessage("[xAuth] You are not registered.");
+                $event->getPlayer()->sendMessage("[xAuth] Type your wanted password in chat.");
+        		return true;
+            }
+            else{
+                if($this->plugin->getConfig("ip-auth") === true && $myuser->get("myip") !== $event->getPlayer()->getAddress()){
+                    $this->plugin->proccessmanager[$event->getPlayer()->getId()] = 2;
+                    $event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
+                    $event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
+                    return true;
+                }
+                if($this->plugin->getConfig("ip-auth") === true && $myuser->get("myip") === $event->getPlayer()->getAddress()){
+                    $event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
+                    return true;
+                }
+                if($this->plugin->getConfig("ip-auth") !== true){
+                    $event->getPlayer()->sendMessage("[xAuth] Please type your password in chat to log-in.");
+                    return true;
+            }
         	else{
         		$this->chatmanager[$event->getPlayer()->getId()] = 1;
         		$event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
-        	}
-    	}
-    	elseif($this->owner->status === "enabled"){
-    		//MySQL
-    	}
+            }
+        }
     }
     public function onChat(PlayerChatEvent $event){
-        if($this->owner->status === "enabled" and $this->owner->loginmanager[$event->getPlayer()->getId()] !== 1){
-            if($this->owner->provider === "yml"){
-            	if($this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" and $this->plugin->loginmanager[$event->getPlayer()->getId()] !== 1){
+            if($this->plugin->provider === "yml"){
+            	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
             		$event->getPlayer()->sendMessage("Thanks! Please re-type your wanted password in chat.");
-            		$this->owner->loginmanager[$event->getPlayer()->getId()] = $message;
+            		$this->plugin->loginmanager[$event->getPlayer()->getId()] = $message;
             		
             	}
-            	elseif($this->owner->loginmanager[$event->getPlayer()->getId()] === $message){
+            	elseif($this->plugin->loginmanager[$event->getPlayer()->getId()] === $message){
             		$this->proccessPassword($message, 0);
             		$event->getPlayer()->sendMessage("You are now registered.");
-            		unset($this->owner->proccessmanager[$event->getPlayer()->getId()]);
+            		unset($this->plugin->proccessmanager[$event->getPlayer()->getId()]);
             	}
             }
             elseif($this->owner->provider === "mysql"){
