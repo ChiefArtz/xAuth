@@ -65,6 +65,7 @@ class LoginAndRegister implements Listener{
     	if($type === 0){
     	}
     	else{
+    		return $encryptpassword;
     		
     	}
     }
