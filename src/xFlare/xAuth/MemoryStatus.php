@@ -3,14 +3,10 @@
 #Helps server stay alive if it is laging.
 namespace xFlare\xAuth;
 
-use pocketmine\event\Listener;
-use pocketmine\utils\TextFormat;
-use pocketmine\Player;
-use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
+use pocketmine\scheduler\PluginTask;
 use pocketmine\Server;
 
-class MemoryTasks implements Listener{
+class MemoryStatus extends PluginTask{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
     }
