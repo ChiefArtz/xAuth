@@ -53,6 +53,7 @@ class Loader extends PluginBase implements Listener{
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
+    $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
     if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
