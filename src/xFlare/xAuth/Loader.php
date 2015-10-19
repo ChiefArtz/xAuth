@@ -25,7 +25,7 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
-    if($this->provider !== "mysql" || $this->provider !== "yml"){
+    if($this->provider !== "mysql" && $this->provider !== "yml"){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
       $this->getServer()->shutdown();
@@ -36,24 +36,25 @@ class Loader extends PluginBase implements Listener{
       $errors++;
     }
     if($this->getConfig()->get("cache-logins") === true && $this->provider !== "mysql"){
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3You can only cache logins with MySQL§7!");
       $this->getConfig()->set("cache-logins", false);
       $this->getConfig()->save();
       $errors++;
     }
     if($this->getConfig()->get("cache-logins") === true && $this->getConfig()->get("enable-pass-changing") === true){
-      $this->getConfig()->set("enable-pass-changing", false);
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild config, you cannot chnge passwords with caching§7!");
+      $this->getConfig()->set("cache-logins", false);
       $this->getConfig()->save();
       $errors++;
     }
     if($errors !== 0){
         $this->getConfig()->reload();
-        $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3config data§7!");
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
-    if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
+    if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
