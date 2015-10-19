@@ -20,10 +20,6 @@ class Loader extends PluginBase implements Listener{
     $this->status = null; //Keeps track of auth status.
     $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
-    if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
-    }
     $this->checkForConfigErrors($this->getConfig()); //Will check for different config errors.
   }
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
@@ -55,6 +51,10 @@ class Loader extends PluginBase implements Listener{
     }
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
+    if($this->getConfig()->get("database-checks") === true && $this->provider === "mysql"){
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
+    }
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
 }
