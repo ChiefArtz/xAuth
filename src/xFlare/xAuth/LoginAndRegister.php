@@ -28,6 +28,9 @@ class LoginAndRegister implements Listener{
         }
         elseif($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") === true){
         	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+        	if($myuser->get("registered") !== true){
+        		$this->owner->proccessmanager[$event->getPlayer()->getId()] = 0;
+        	}
         	if($myuser->get("myip") !=== $event->getPlayer()->getAddress()){
         		$event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
         		$event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
@@ -42,12 +45,28 @@ class LoginAndRegister implements Listener{
     public function onChat(PlayerChatEvent $event){
         if($this->owner->status === "enabled" and $this->owner->loginmanager[$event->getPlayer()->getId()] !== 1){
             if($this->owner->provider === "yml"){
-                //Manage login/register for provider.
+            	if($this->owner->loginmanager[$event->getPlayer()->getId()] === 0){
+            		$event->getPlayer()->sendMessage("Thanks! Please re-type your wanted password in chat.");
+            		$this->owner->loginmanager[$event->getPlayer()->getId()] = $message;
+            		
+            	}
+            	elseif($this->owner->loginmanager[$event->getPlayer()->getId()] === $message){
+            		$this->proccessPassword($message, 0);
+            		$event->getPlayer()->sendMessage("You are now registered.");
+            		unset $this->owner->proccessmanager[$event->getPlayer()->getId()];
+            	}
             }
             elseif($this->owner->provider === "mysql"){
                 //Manage login/register for provider.
             }
         }
+    }
+    private function proccessPassword($password, $type){
+    	if($type === 0){
+    	}
+    	else{
+    		
+    	}
     }
 }
 
