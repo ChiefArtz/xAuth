@@ -1,5 +1,5 @@
 # xAuth [Version: 1.0.0]
-- xAuth, fully developed, 1.6 PocketMine-ready auth system.
+- xAuth - 1.6 ready Auth system.
 
 # xAuth advantages over SimpleAuth
 - xAuth protects users more and stops some events that SimpleAuth does not.
