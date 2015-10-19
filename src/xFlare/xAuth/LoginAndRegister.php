@@ -23,13 +23,16 @@ class LoginAndRegister implements Listener{
         $this->plugin = $plugin;
     }
     public function onJoin(PlayerJoinEvent $event){
-        if($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") !== true){
-            $this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
-        }
-        elseif($this->owner->status === "enabled" && $this->owner->getConfig()->get("ip-auth") === true){
-        	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
-        	if($myuser->get("registered") !== true){
-        		$this->owner->proccessmanager[$event->getPlayer()->getId()] = 0;
+    	if($this->owner->status === "enabled" and $this->provider === "yml"){
+        	if($this->owner->getConfig()->get("ip-auth") !== true){
+            		$this->owner->loginmanager[$event->getPlayer()->getId()] = 0;
+        	}
+        	if($this->owner->getConfig()->get("ip-auth") === true){
+        		$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+        		if($myuser->get("registered") !== true){
+        			$this->owner->proccessmanager[$event->getPlayer()->getId()] = 0;
+        			return true;
+        		}
         	}
         	if($myuser->get("myip") !=== $event->getPlayer()->getAddress()){
         		$event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
@@ -38,9 +41,11 @@ class LoginAndRegister implements Listener{
         	else{
         		$this->chatmanager[$event->getPlayer()->getId()] = 1;
         		$event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
-        		
         	}
-        }
+    	}
+    	elseif($this->owner->status === "enabled"){
+    		//MySQL
+    	}
     }
     public function onChat(PlayerChatEvent $event){
         if($this->owner->status === "enabled" and $this->owner->loginmanager[$event->getPlayer()->getId()] !== 1){
