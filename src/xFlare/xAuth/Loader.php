@@ -12,6 +12,7 @@ use pocketmine\Server;
 class Loader extends PluginBase implements Listener{
   public $loginmanager=array(); //Idividual player login statuses using arrays (sessions).
   public $chatprotection=array();
+  public $proccessmanager=array();
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7...§6Loading §edata§7.");
