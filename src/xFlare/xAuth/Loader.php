@@ -28,6 +28,11 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
+    if($this->provider !== "mysql" || $this->provider !== "yml"){
+      $this->status = "failed";
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
+      $this->getServer()->shutdown();
+    }
     if($this->getConfig()->get("database-checks") === true && $this->provider !== "mysql"){
       $this->getConfig()->set("data-checks", false);
       $this->getConfig()->save();
