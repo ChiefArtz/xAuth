@@ -4,11 +4,11 @@
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
-use pocketmine\utils\TextFormat;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
+//Events\\
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
