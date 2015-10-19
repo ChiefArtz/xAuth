@@ -62,7 +62,7 @@ class LoginTasks implements Listener{
         }
     }
     public function onBreak(BlockBreakEvent $event){
-        if($this->owner->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
     }
