@@ -46,3 +46,6 @@ player-quit: true
 
 #Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
+
+#For internal use only. Do not edit.
+version: 1.0.0
