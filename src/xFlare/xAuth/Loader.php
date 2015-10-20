@@ -26,7 +26,8 @@ class Loader extends PluginBase implements Listener{
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
     if($this->getConfig()->get("version") !== 1.0.0){
-      $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config..Server will restart§7.");
+      $this->status = "failed";
+      $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config...xAuth will be enabled soon...§7.");
       $myoptions=array();
       array_push($myoptions, $this->provider); //Push old data so it can be inserted in new config.
       $this->updateConfig($myoptions);
