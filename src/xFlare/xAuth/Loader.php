@@ -25,7 +25,7 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
-    if($this->getConfig()->get("version") !== 1.0.0){
+    if($this->getConfig()->get("version") !== "1.0.0"){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config...xAuth will be enabled soon...§7.");
       $myoptions=array();
@@ -68,7 +68,6 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
-  }
   }
 }
     

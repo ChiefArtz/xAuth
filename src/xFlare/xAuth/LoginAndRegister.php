@@ -45,10 +45,11 @@ class LoginAndRegister implements Listener{
                 if($this->plugin->getConfig("ip-auth") !== true){
                     $event->getPlayer()->sendMessage("[xAuth] Please type your password in chat to log-in.");
                     return;
-            }
-        	else{
-        		$this->chatmanager[$event->getPlayer()->getId()] = 1;
-        		$event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
+                }
+        	    else{
+        		  $this->chatmanager[$event->getPlayer()->getId()] = 1;
+        		  $event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
+                }
             }
         }
     }
@@ -80,7 +81,7 @@ class LoginAndRegister implements Listener{
         	}
         }
     }
-    private function proccessPassword($password, $type){
+    public function proccessPassword($password, $type){
     	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
     	if($type === 0){
     		$myuser->set("password", hash("xauth", strtoupper($password)));
