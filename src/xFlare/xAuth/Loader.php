@@ -65,6 +65,9 @@ class Loader extends PluginBase implements Listener{
     if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
+    if($this->provider === "yml"){
+      $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
+    }
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
