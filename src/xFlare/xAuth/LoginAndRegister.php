@@ -29,22 +29,22 @@ class LoginAndRegister implements Listener{
         		$this->plugin->proccessmanager[$event->getPlayer()->getId()] = 0;
                 $event->getPlayer()->sendMessage("[xAuth] You are not registered.");
                 $event->getPlayer()->sendMessage("[xAuth] Type your wanted password in chat.");
-        		return true;
+        		return;
             }
             else{
                 if($this->plugin->getConfig("ip-auth") === true && $myuser->get("myip") !== $event->getPlayer()->getAddress()){
                     $this->plugin->proccessmanager[$event->getPlayer()->getId()] = 2;
                     $event->getPlayer()->sendMessage("[xAuth] Your IP does not match.");
                     $event->getPlayer()->sendMessage("[xAuth] Please type your password in chat.");
-                    return true;
+                    return;
                 }
                 if($this->plugin->getConfig("ip-auth") === true && $myuser->get("myip") === $event->getPlayer()->getAddress()){
                     $event->getPlayer()->sendMessage("[xAuth] You are now logged-in.");
-                    return true;
+                    return;
                 }
                 if($this->plugin->getConfig("ip-auth") !== true){
                     $event->getPlayer()->sendMessage("[xAuth] Please type your password in chat to log-in.");
-                    return true;
+                    return;
             }
         	else{
         		$this->chatmanager[$event->getPlayer()->getId()] = 1;
@@ -88,7 +88,7 @@ class LoginAndRegister implements Listener{
     		
     	}
     	else{
-    		return hash("xauth", strtoupper($password));
+    		return md5($password);
     		
     	}
     }
