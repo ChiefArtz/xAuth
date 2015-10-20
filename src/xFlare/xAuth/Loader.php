@@ -25,6 +25,12 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
+    if($this->getConfig()->get("version") !== 1.0.0){
+      $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config..Server will restart§7.");
+      $myoptions=array();
+      array_push($myoptions, $this->provider); //Push old data so it can be inserted in new config.
+      $this->updateConfig($myoptions);
+    }
     if($this->provider !== "mysql" && $this->provider !== "yml"){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
@@ -59,6 +65,9 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+  }
+  public function updateConfig(){
+  }
   }
 }
     
