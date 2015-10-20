@@ -7,6 +7,9 @@ use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\utils\Config;
 use pocketmine\Server;
 class Loader extends PluginBase implements Listener{
@@ -73,12 +76,12 @@ class Loader extends PluginBase implements Listener{
   public function updateConfig(){
   }
   public function onJoin(PlayerJoinEvent $event){
-      if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-join") !== true){
+      if($this->status === "enabled" && $this->getConfig()->get("player-join") !== true){
             $this->setJoinMessage("");
       }
     }
     public function onQuit(PlayerQuitEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-quit") !== true){
+        if($this->status === "enabled" && $this->getConfig()->get("player-quit") !== true){
             $this->setQuitMessage("");
         }
     }
