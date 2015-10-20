@@ -25,8 +25,9 @@ class LoginAndRegister implements Listener{
     public function onJoin(PlayerJoinEvent $event){
     	if($this->plugin->status === "enabled" and $this->plugin->provider === "yml"){
             $myuser = new Config($this->plugin->getDataFolder() . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
-        	if(!$this->registered->exists(strtolower($event->getPlayer()->getName()))){
+        	if(!$this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
         		$this->plugin->proccessmanager[$event->getPlayer()->getId()] = 0;
+                $this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
                 $event->getPlayer()->sendMessage("[xAuth] You are not registered.");
                 $event->getPlayer()->sendMessage("[xAuth] Type your wanted password in chat.");
         		return;
