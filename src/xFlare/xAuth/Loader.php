@@ -72,15 +72,5 @@ class Loader extends PluginBase implements Listener{
   }
   public function updateConfig(){
   }
-  public function onJoin(PlayerJoinEvent $event){
-      if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-join") !== true){
-            $this->setJoinMessage("");
-      }
-    }
-    public function onQuit(PlayerQuitEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-quit") !== true){
-            $this->setQuitMessage("");
-        }
-    }
 }
     
