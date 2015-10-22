@@ -58,12 +58,6 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    if($this->getConfig()->get("cache-logins") === true && $this->getConfig()->get("enable-pass-changing") === true){
-      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild config, you cannot chnge passwords with caching§7!");
-      $this->getConfig()->set("cache-logins", false);
-      $this->getConfig()->save();
-      $errors++;
-    }
     if($errors !== 0){
         $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
@@ -82,6 +76,7 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
+    $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to 1.0.07...");
     $this->getConfig()->set("version", "1.0.0");
     $this->getConfig()->save();
     $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
