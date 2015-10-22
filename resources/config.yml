@@ -30,8 +30,11 @@ enable-pass-changing: true
 
 
 #------------[Auth Events]------------#
-#Allow moving when loging in?
+#What to allow/disallow when not authenticated?
 allow-movment: false
+allow-commands: false
+allow-block-placing: false
+allow-block-breaking: false
 #------------[Auth Events]------------#
 
 
@@ -41,6 +44,9 @@ player-join: true
 
 #Anounce player quit? xAuth let's you choose whether you want "player has left the server".
 player-quit: true
+
+#Show there auth status when not logged in? Username: "[Not-Logged-In] Steve"
+show-username-auth-status: true
 #------------[General]------------#
 
 
