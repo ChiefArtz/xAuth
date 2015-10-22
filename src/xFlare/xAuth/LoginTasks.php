@@ -47,7 +47,7 @@ class LoginTasks implements Listener{
         }
     }
     public function onCommand(PlayerCommandPreprocessEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowCommand !== true){
             $event->setCancelled(true);
         }
     }
@@ -57,17 +57,17 @@ class LoginTasks implements Listener{
         }
     }
     public function onMove(PlayerMoveEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->getConfig()->get("allow-movment") !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowMove !== true){
             $event->setCancelled(true);
         }
     }
     public function onBreak(BlockBreakEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowBreak !== true){
             $event->setCancelled(true);
         }
     }
     public function onPlace(BlockPlaceEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowPlace !== true){
             $event->setCancelled(true);
         }
     }
