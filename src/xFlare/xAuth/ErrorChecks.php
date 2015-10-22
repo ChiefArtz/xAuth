@@ -8,7 +8,7 @@
  /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
                                         
                                         */
-#Helps server stay alive if it is laging.
+#Helps server stay alive if it is lagging.
 namespace xFlare\xAuth;
 
 use pocketmine\Server;
