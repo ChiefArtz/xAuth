@@ -1,5 +1,13 @@
 <?php
-
+/*
+                            _     _     
+            /\             | |   | |    
+ __  __    /  \     _   _  | |_  | |__  
+ \ \/ /   / /\ \   | | | | | __| | '_ \ 
+  >  <   / ____ \  | |_| | | |_  | | | |
+ /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
+                                        
+                                        */
 #Helps server stay alive if it is laging.
 namespace xFlare\xAuth;
 
