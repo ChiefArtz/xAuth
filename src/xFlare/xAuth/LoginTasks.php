@@ -1,4 +1,13 @@
 <?php
+/*
+                            _     _     
+            /\             | |   | |    
+ __  __    /  \     _   _  | |_  | |__  
+ \ \/ /   / /\ \   | | | | | __| | '_ \ 
+  >  <   / ____ \  | |_| | | |_  | | | |
+ /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
+                                        
+                                        */
 
 #Stops people from doing stuff, when not logged in or registered.
 namespace xFlare\xAuth;
