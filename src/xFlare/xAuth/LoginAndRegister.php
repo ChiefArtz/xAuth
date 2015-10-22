@@ -94,7 +94,7 @@ class LoginAndRegister implements Listener{
     public function proccessPassword($password, $type){
     	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
     	if($type === 0){
-    		$myuser->set("password", hash("xauth", strtoupper($password)));
+    		$myuser->set("password", hash("xauth", strtoupper($password))); //For the last time, the algorithm "xauth" doesn't exist
     		$myuser->save();
     		
     	}
