@@ -21,9 +21,9 @@ class Loader extends PluginBase implements Listener{
     $this->status = null; //Keeps track of auth status.
     $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
-    $this->checkForConfigErrors($this->getConfig()); //Will check for different config errors.
+    $this->checkForConfigErrors();
   }
-  public function checkForConfigErrors($config){ //Will try to fix errors, and repair config to prevent erros further down.
+  public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
     if($this->getConfig()->get("version") !== "1.0.0"){
       $this->status = "failed";
@@ -62,13 +62,13 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
-    $this->registerConfigOptions();
     if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
     if($this->provider === "yml"){
       $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
     }
+    $this->registerConfigOptions();
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
@@ -76,7 +76,11 @@ class Loader extends PluginBase implements Listener{
     $this->getConfig()->save();
     $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
   }
-  public function registerConfigOptions(){
+  public function registerConfigOptions(){ //Config -> Object for less lag.
+    $this->allowMoving = $this->getConfig()->get("allow-moving");
+    $this->allowPlace = $this->getConfig()->get("allow-block-placing");
+    $this->allowBreak = $this->getConfig()->get("allow-block-breaking");
+    $this->allowCommand = $this->getConfig()->get("allow-commands");
   }
 }
     
