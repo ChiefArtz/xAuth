@@ -20,7 +20,7 @@ class ErrorChecks extends PluginTask{
         $this->length = -1;
     }
     public function onRun($currentTick){
-       if($this->owner->memorymanagerdata = 1){ //Make sure server is not laging.
+       if($this->owner->memorymanagerdata === 1){ //Make sure server is not laging.
          //Check for errors.
        }
     }
