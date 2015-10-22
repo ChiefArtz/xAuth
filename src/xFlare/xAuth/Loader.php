@@ -62,6 +62,7 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
+    $this->registerConfigOptions();
     if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
@@ -71,6 +72,8 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
+  }
+  public function registerConfigOptions(){
   }
 }
     
