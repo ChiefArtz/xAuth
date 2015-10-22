@@ -72,6 +72,9 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
+    $this->getConfig()->set("version", "1.0.0");
+    $this->getConfig()->save();
+    $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
   }
   public function registerConfigOptions(){
   }
