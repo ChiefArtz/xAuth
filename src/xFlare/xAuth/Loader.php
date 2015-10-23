@@ -67,6 +67,9 @@ class Loader extends PluginBase implements Listener{
     if($this->provider === "yml"){
       $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
     }
+    if($this->getConfig()->get("hotbar-message") === true){
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
+    }
     $this->registerConfigOptions();
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
