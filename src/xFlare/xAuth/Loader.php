@@ -14,11 +14,11 @@
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
-use pocketmine\utils\TextFormat;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
+
 class Loader extends PluginBase implements Listener{
   public $loginmanager=array(); //Idividual player login statuses using arrays (sessions).
   public $chatprotection=array();
