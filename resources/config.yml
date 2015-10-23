@@ -18,6 +18,9 @@ use-async: false
 #Only for MySQL
 database-checks: false
 
+#Send users a message below the hot bar letting them know what to do? (Recommend you keep this on)
+hotbar-message: true
+
 #Enable password changing?
 enable-pass-changing: true
 
