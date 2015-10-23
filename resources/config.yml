@@ -44,6 +44,8 @@ player-quit: true
 show-username-auth-status: true
 #------------[General]------------#
 
+#Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything? (Prevents impersonators)
+safe-mode: true
 
 #Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
