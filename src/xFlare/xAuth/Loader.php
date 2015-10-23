@@ -53,12 +53,6 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    if($this->getConfig()->get("cache-logins") === true && $this->provider !== "mysql"){
-      $this->getServer()->getLogger()->info("§7[§cError§7] §3You can only cache logins with MySQL§7!");
-      $this->getConfig()->set("cache-logins", false);
-      $this->getConfig()->save();
-      $errors++;
-    }
     if($errors !== 0){
         $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
