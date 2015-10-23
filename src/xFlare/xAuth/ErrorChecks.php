@@ -21,11 +21,14 @@ class ErrorChecks extends PluginTask{
     }
     public function onRun($currentTick){
        if($this->owner->memorymanagerdata === 1){ //Make sure server is not lagging.
-         //Check for errors.
+        $errors = 0;
+        if($errors !== 0 and $this->owner->debug === true){
+          $this->owner->getServer()->getLogger()->info("[xAuth] $errors errors found in total.");
+        }
        }
        else{
         if($this->owner->debug === true){
-          $this->owner->getServer()->getLogger()->info("ErrorChecks for MySQL have been disabled until lag goes away.");
+          $this->owner->getServer()->getLogger()->info("[xAuth] ErrorChecks for MySQL have been disabled until lag goes away.");
         }
       }
     }

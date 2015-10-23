@@ -23,7 +23,7 @@ use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerChatEvent;
@@ -49,7 +49,7 @@ class LoginTasks implements Listener{
     	elseif($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 1 && $this->plugin->chatprotection[$event->getPlayer()->getId] === $this->plugin->proccessPassword($message, 1)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
-    	elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+    	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -57,7 +57,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -65,7 +65,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowCommand !== true){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -73,7 +73,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -81,7 +81,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowMove !== true){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -89,7 +89,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowBreak !== true){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -97,21 +97,23 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowPlace !== true){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
-    
- /*   public function onPvP(EntityDamageByEntityEvent $event){
+    public function onPvP(EntityDamageEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
-    } */
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
+            $event->setCancelled(true);
+        }
+    } 
     public function onBowShoot(EntityShootBowEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -119,7 +121,7 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
             $event->setCancelled(true);
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
     	}
     }
@@ -127,17 +129,11 @@ class LoginTasks implements Listener{
         if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-join") !== true){
             $event->setJoinMessage("");
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
-    		$event->setCancelled(true);
-    	}
     }
     public function onQuit(PlayerQuitEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-quit") !== true){
             $event->setQuitMessage("");
         }
-        elseif($this->pluginsafemode === true and $this->plugin->status !== "enabled"){
-    		$event->setCancelled(true);
-    	}
     }
 }
 
