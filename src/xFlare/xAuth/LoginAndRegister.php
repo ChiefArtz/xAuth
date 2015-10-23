@@ -84,6 +84,7 @@ class LoginAndRegister implements Listener{
             	}
             }
             elseif($this->owner->provider === "mysql"){
+                $event->getPlayer()->sendMessage("> Connecting to MySQL server..Please wait.");
                 //Manage login/register for provider.
             }
         }
@@ -91,6 +92,8 @@ class LoginAndRegister implements Listener{
         	$ecr = $this->proccessPassword($event->getMessage(), 1);
         	if($myuser->get("password") === $ecr){
         		$event->getPlayer()->sendMessage("You are now logged in.");
+                $name = $event->getPlayer()->getName();
+                $p->sendTip("Welcome, $name to the server!");
         	}
         	else{
         		$event->getPlayer()->sendMessage("Login failed.");
