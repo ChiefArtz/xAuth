@@ -32,6 +32,7 @@ class Loader extends PluginBase implements Listener{
     $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
     $this->version = "1.0.0"
+    $this->safemode = $this->getConfig()->get("safe-mode");
     $this->checkForConfigErrors();
   }
   public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
