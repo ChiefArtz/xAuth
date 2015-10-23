@@ -31,11 +31,12 @@ class Loader extends PluginBase implements Listener{
     $this->status = null; //Keeps track of auth status.
     $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
+    $this->version = "1.0.0"
     $this->checkForConfigErrors();
   }
   public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
-    if($this->getConfig()->get("version") !== "1.0.0"){
+    if($this->getConfig()->get("version") !== $this->version){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config...xAuth will be enabled soon...§7.");
       $myoptions=array();
@@ -74,8 +75,8 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
-    $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to 1.0.07...");
-    $this->getConfig()->set("version", "1.0.0");
+    $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
+    $this->getConfig()->set("version", $this->version);
     $this->getConfig()->save();
     $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
   }
