@@ -23,5 +23,10 @@ class ErrorChecks extends PluginTask{
        if($this->owner->memorymanagerdata === 1){ //Make sure server is not lagging.
          //Check for errors.
        }
+       else{
+        if($this->owner->debug === true){
+          $this->owner->getServer()->getLogger()->info("ErrorChecks for MySQL have been disabled until lag goes away.");
+        }
+      }
     }
-}
+  }

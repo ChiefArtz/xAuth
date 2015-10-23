@@ -30,7 +30,7 @@ class Loader extends PluginBase implements Listener{
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Keeps track of auth status.
     $this->memorymanagerdata = 0;
-    $this->debug = $this->getConfig()->get("debug-mode");
+    $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->version = "1.0.0"
     $this->safemode = $this->getConfig()->get("safe-mode");
     $this->checkForConfigErrors();
