@@ -79,11 +79,17 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
     }
     $this->registerConfigOptions();
-    $this->status = "enabled";
     if($status === 1){
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
     }
-    $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+    if($this->status === null){
+      $this->status = "enabled";
+      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+    }
+    elseif($this->status !== null){
+      $this->status = "failed";
+      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has failed to start up§7.");
+    }
   }
   public function updateConfig(){
     if($this->version !== $this->getConfig()->get("version")){
@@ -104,6 +110,10 @@ class Loader extends PluginBase implements Listener{
     $this->allowCommand = $this->getConfig()->get("allow-commands");
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
     $this->safemode = $this->getConfig()->get("safe-mode");
+    if($this->safemode !== true && $this->safemode !== false){
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object version failed!");
+      $this->status = "failed";
+    }
   }
 }
     
