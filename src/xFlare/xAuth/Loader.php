@@ -32,7 +32,13 @@ class Loader extends PluginBase implements Listener{
     $this->memorymanagerdata = 0;
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->version = "1.0.0"
+    $this->totalerrors = 0;
     $this->checkForConfigErrors();
+  }
+  public function onDisable(){
+    if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
+      $this->getServer()->getLogger()->info("§7[dxAuth§7] §3Total errors during session: $this->totalerrors§7.");
+    }
   }
   public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
@@ -58,6 +64,7 @@ class Loader extends PluginBase implements Listener{
         $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
+    $this->totalerrors = $errors;
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
@@ -72,13 +79,20 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
     }
     $this->registerConfigOptions();
+    $this->status = "enabled";
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
-    $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
-    $this->getConfig()->set("version", $this->version);
-    $this->getConfig()->save();
-    $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
+    if($this->version !== $this->getConfig()->get("version")){
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
+      $this->getConfig()->set("version", $this->version);
+      $this->getConfig()->save();
+      $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
+    }
+    else{
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3xAuth called config update on null.");
+      $this->totalerrors++;
+    }
   }
   public function registerConfigOptions(){ //Config -> Object for less lag.
     $this->allowMoving = $this->getConfig()->get("allow-moving");
