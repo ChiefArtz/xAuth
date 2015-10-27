@@ -24,6 +24,9 @@ hotbar-message: true
 #Enable password changing?
 enable-pass-changing: true
 
+#Block simple passwords?
+simple-passcode-blocker: true
+
 #------------[Authenticatin Settings]------------#
 
 
