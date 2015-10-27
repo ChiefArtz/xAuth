@@ -32,7 +32,6 @@ class Loader extends PluginBase implements Listener{
     $this->memorymanagerdata = 0;
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->version = "1.0.0"
-    $this->safemode = $this->getConfig()->get("safe-mode");
     $this->checkForConfigErrors();
   }
   public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
@@ -87,6 +86,7 @@ class Loader extends PluginBase implements Listener{
     $this->allowBreak = $this->getConfig()->get("allow-block-breaking");
     $this->allowCommand = $this->getConfig()->get("allow-commands");
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
+    $this->safemode = $this->getConfig()->get("safe-mode");
   }
 }
     
