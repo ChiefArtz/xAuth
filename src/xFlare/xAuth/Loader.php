@@ -33,14 +33,14 @@ class Loader extends PluginBase implements Listener{
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->version = "1.0.0"
     $this->totalerrors = 0;
-    $this->checkForConfigErrors();
+    $this->checkForConfigErrors(0);
   }
   public function onDisable(){
     if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
       $this->getServer()->getLogger()->info("§7[dxAuth§7] §3Total errors during session: $this->totalerrors§7.");
     }
   }
-  public function checkForConfigErrors(){ //Will try to fix errors, and repair config to prevent erros further down.
+  public function checkForConfigErrors($status){ //Will try to fix errors, and repair config to prevent erros further down.
     $errors = 0;
     if($this->getConfig()->get("version") !== $this->version){
       $this->status = "failed";
@@ -80,6 +80,9 @@ class Loader extends PluginBase implements Listener{
     }
     $this->registerConfigOptions();
     $this->status = "enabled";
+    if($status === 1){
+      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
+    }
     $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
   }
   public function updateConfig(){
@@ -87,7 +90,7 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
       $this->getConfig()->set("version", $this->version);
       $this->getConfig()->save();
-      $this->checkForConfigErrors($this->getConfig()); //Recheck for errors since the proccess was stoped to update it.
+      $this->checkForConfigErrors(1); //Recheck for errors since the proccess was stoped to update it.
     }
     else{
       $this->getServer()->getLogger()->info("§7[§cError§7] §3xAuth called config update on null.");
