@@ -86,6 +86,7 @@ class Loader extends PluginBase implements Listener{
     $this->allowPlace = $this->getConfig()->get("allow-block-placing");
     $this->allowBreak = $this->getConfig()->get("allow-block-breaking");
     $this->allowCommand = $this->getConfig()->get("allow-commands");
+    $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
   }
 }
     
