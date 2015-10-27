@@ -115,9 +115,11 @@ class Loader extends PluginBase implements Listener{
     $this->allowCommand = $this->getConfig()->get("allow-commands");
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
     $this->safemode = $this->getConfig()->get("safe-mode");
-    if($this->safemode !== true && $this->safemode !== false){
-      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed!");
+    if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false){
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
+      $this->totalerrors++;
+      $this->checkForConfigErrors(0);
     }
   }
 }
