@@ -35,6 +35,11 @@ class Loader extends PluginBase implements Listener{
     $this->totalerrors = 0;
     $this->checkForConfigErrors(0);
   }
+  /*
+  - Status "failed" means plugin is disabled.
+  - Status "enabled" means plugin has successfuly started, and is running.
+  - Status "null" means that plugin is starting up.
+  */
   public function onDisable(){
     if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
       $this->getServer()->getLogger()->info("§7[dxAuth§7] §3Total errors during session: $this->totalerrors§7.");
