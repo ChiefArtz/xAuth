@@ -25,7 +25,7 @@ class Loader extends PluginBase implements Listener{
   public $proccessmanager=array();
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7...§6Loading §edata§7.");
+    $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7..§6Processing §edata§7.");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Keeps track of auth status.
