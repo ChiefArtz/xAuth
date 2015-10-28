@@ -78,7 +78,7 @@ class LoginAndRegister implements Listener{
             		
             	}
             	elseif($this->plugin->loginmanager[$event->getPlayer()->getId()] === $message){
-            		$this->proccessPassword($message, 0);
+            		$this->proccessPassword($message, 0, $event->getPlayer());
             		$event->getPlayer()->sendMessage("You are now registered.");
             		unset($this->plugin->proccessmanager[$event->getPlayer()->getId()]);
             	}
@@ -100,14 +100,15 @@ class LoginAndRegister implements Listener{
         	}
         }
     }
-    public function proccessPassword($password, $type){
+    public function proccessPassword($password, $type, $player){
     	if($this->simplePassword === true && $this->status === "enabled"){
-    		if($password === 123456789 || $password === 987654321){
+    		if($password === 123456789 || $password === 987654321 || $password === "asdfg"){
     			$player->sendMessage("[xAuth] That password is too simple!");
     			$player->sendMessage("[xAuth] Make it harder by adding letters and numbers!");
+    			return;
     		}
     	}
-    	$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+    	$myuser = new Config($this->myuser . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	if($type === 0){
     		$myuser->set("password", md5($password));
     		$myuser->save();
