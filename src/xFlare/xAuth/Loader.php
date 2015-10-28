@@ -34,6 +34,9 @@ class Loader extends PluginBase implements Listener{
     $this->version = "1.0.0"
     $this->totalerrors = 0;
     $this->checkForConfigErrors(0);
+    if($this->debug === true && $this->status === null){
+      $this->xauthlogger = new Config($this->getDataFolder() . "authlogger.txt", Config::ENUM, array()); //Log errors
+    }
   }
   /*
   - Status "failed" means plugin is disabled.
@@ -69,7 +72,7 @@ class Loader extends PluginBase implements Listener{
         $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
-    $this->totalerrors = $errors;
+    $this->totalerrors = $totalerrors + $errors;
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
@@ -115,11 +118,10 @@ class Loader extends PluginBase implements Listener{
     $this->allowCommand = $this->getConfig()->get("allow-commands");
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
     $this->safemode = $this->getConfig()->get("safe-mode");
-    if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false){
+    if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
       $this->totalerrors++;
-      $this->checkForConfigErrors(0);
     }
   }
 }
