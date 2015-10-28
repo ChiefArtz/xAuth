@@ -68,11 +68,6 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    if($errors !== 0){
-        $this->getConfig()->reload();
-        $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $errors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
-    }
-    $this->totalerrors = $totalerrors + $errors;
     $this->status = "enabled"; //Assuming errors have been fixed.
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
@@ -89,6 +84,16 @@ class Loader extends PluginBase implements Listener{
     $this->registerConfigOptions();
     if($status === 1){
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
+    }
+    if($this->logger !== true && $this->debug !== false){
+      $this->getConfig()->set("log-xauth", true);
+      $this->getConfig()->save();
+      $errors++;
+    }
+    $this->totalerrors = $totalerrors + $errors;
+    if($errors !== 0 || $this->totalerrors !== 0){
+        $this->getConfig()->reload();
+        $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $this->totalerrors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
     if($this->status === null){
       $this->status = "enabled";
