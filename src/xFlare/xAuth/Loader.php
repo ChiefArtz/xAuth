@@ -25,17 +25,26 @@ class Loader extends PluginBase implements Listener{
   public $proccessmanager=array();
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->getServer()->getLogger()->info("§7> §3Starting up §ax§dAuth§7..§6Processing §edata§7.");
+    $this->version = "1.0.0"
+    $this->codename = "xFlaze"
+    $this->getServer()->getLogger()->info("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Keeps track of auth status.
     $this->memorymanagerdata = 0;
     $this->debug = true; //$this->getConfig()->get("debug-mode");
-    $this->version = "1.0.0"
     $this->totalerrors = 0;
     $this->checkForConfigErrors(0);
+    $this->async = $this->getConfig()->get("use-async");
     if($this->debug === true && $this->status === null){
       $this->xauthlogger = new Config($this->getDataFolder() . "authlogger.txt", Config::ENUM, array()); //Log errors
+    }
+    if($this->async !== true || $this->async !== false){
+      $this->totalerrors++;
+      $this->async = false;
+    }
+    if($this->async !== true){
+    // $this->database = mysql; Later.
     }
   }
   /*
@@ -46,6 +55,12 @@ class Loader extends PluginBase implements Listener{
   public function onDisable(){
     if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
       $this->getServer()->getLogger()->info("§7[dxAuth§7] §3Total errors during session: $this->totalerrors§7.");
+    }
+    if($this->safemode === true){
+      //Set config data.
+      if($this->status === "enabled" && $this->safemode === true){
+        //Insert all data to config
+      }
     }
   }
   public function checkForConfigErrors($status){ //Will try to fix errors, and repair config to prevent erros further down.
