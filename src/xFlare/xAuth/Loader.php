@@ -55,7 +55,7 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config...xAuth will be enabled soon...§7.");
       $myoptions=array();
       array_push($myoptions, $this->provider); //Push old data so it can be inserted in new config.
-      $this->updateConfig($myoptions
+      $this->updateConfig($myoptions);
       return;
     }
     if($this->provider !== "mysql" && $this->provider !== "yml"){
@@ -99,7 +99,10 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has failed to start up§7.");
     }
   }
-  public function updateConfig(){
+  public function updateConfig($myoptions){
+    if($this->debug === true){
+      var_dump($myoptions);
+    }
     if($this->version !== $this->getConfig()->get("version")){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
       $this->getConfig()->set("version", $this->version);
