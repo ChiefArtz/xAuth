@@ -90,7 +90,7 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    $this->totalerrors = $totalerrors + $errors;
+    $this->totalerrors = $this->totalerrors + $errors;
     if($errors !== 0 || $this->totalerrors !== 0){
         $this->getConfig()->reload();
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $this->totalerrors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
