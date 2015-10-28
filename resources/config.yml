@@ -50,6 +50,15 @@ player-quit: true
 show-username-auth-status: true
 #------------[General]------------#
 
+#----------------[Messages]----------------#
+#Messages sent throughout the plugin.
+join: "Welcome to the server!"
+register: "Please register to play!"
+login: "Please log-in to play."
+registered: "Please register this usernamer"
+already-registered: "This username is already registered"
+#----------------[Messages]----------------#
+
 #Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything? (Prevents impersonators)
 safe-mode: true
 
