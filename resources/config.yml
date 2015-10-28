@@ -56,5 +56,8 @@ safe-mode: true
 #Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
 
+#Creates a log file and logs things. You cannot turn this off with debug.
+log-xauth: true
+
 #For internal use only. Do not edit.
 version: 1.0.0
