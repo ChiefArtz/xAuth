@@ -122,7 +122,7 @@ class LoginAndRegister implements Listener{
     		$myuser->save();
     	}
     	else{
-    		if($this->status === "enabled"){
+    		if($this->plugin->status === "enabled"){
     			return md5($password);
     		}
     	}
