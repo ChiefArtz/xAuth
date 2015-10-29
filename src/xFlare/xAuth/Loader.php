@@ -25,8 +25,8 @@ class Loader extends PluginBase implements Listener{
   public $proccessmanager=array();
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0"
-    $this->codename = "xFlaze"
+    $this->version = "1.0.0";
+    $this->codename = "xFlaze";
     $this->getServer()->getLogger()->info("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
