@@ -20,9 +20,9 @@ use pocketmine\utils\Config;
 use pocketmine\Server;
 
 class Loader extends PluginBase implements Listener{
-  public $loginmanager=array(); //Idividual player login statuses using arrays (sessions).
-  public $chatprotection=array();
-  public $proccessmanager=array();
+  public $loginmanager = []; //Idividual player login statuses using arrays (sessions).
+  public $chatprotection = [];
+  public $proccessmanager = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
@@ -120,7 +120,7 @@ class Loader extends PluginBase implements Listener{
     }
   }
   public function updateConfig($myoptions){
-    if($this->debug === true){
+    if($this->debug){
       var_dump($myoptions);
     }
     if($this->version !== $this->getConfig()->get("version")){
