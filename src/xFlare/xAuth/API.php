@@ -34,10 +34,10 @@ class LoginTasks implements Listener{
     
     #Returns a true or false value depeding on if a player has logged in.
     public function isAuthenticated(){
-      return $this->plugin->loginmanager[$player->getId()]
+      return $this->plugin->loginmanager[$player->getId()];
     }
     
-    #Important!!! Always check the status ob your plugins or xAuth may not function right.    
+    #Important! Always check the status on your plugins or xAuth may not function right.    
     public function xAuthStatus(){
       if($this->plugin->status === "enabled"){
         return true;
@@ -62,11 +62,22 @@ class LoginTasks implements Listener{
       return true;
      }
    }
+   #Forces xAuth to turn on..If safemode is enabled there will be some checks to protect.
    public function forceActivatexAuth(){
-     if($this->status !== null && $this->status !== "enabled" && $this->status !== "failed"){
-     	$this->status = "enabled";
-     	return true;
-     }
+   	if($this->plugin->safemode === true){
+     		if($this->status !== null && $this->status !== "enabled" && $this->status !== "failed"){
+     			$this->status = "enabled";
+     			return true;
+     		}
+     		else{
+     			return false;
+     		}
+   	}
+   	else{
+   		$this->status = "enabled";
+   		return true;
+   	}
+   	
    }
 }
   
