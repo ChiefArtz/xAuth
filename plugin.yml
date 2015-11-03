@@ -8,6 +8,10 @@ commands:
     login:
         description: Login.
     register:
+        description: Register
+    changepw:
+        description: Register.
+    unregister:
         description: Register.
    
     
