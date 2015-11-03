@@ -16,20 +16,6 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-//Events\\
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\event\player\PlayerDropItemEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\player\PlayerMoveEvent;
-use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\event\player\PlayerChatEvent;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\entity\EntityShootBowEvent;
-use pocketmine\event\player\PlayerItemConsumeEvent;
 /*
 - Here you can access some basic xAuth data so you can use it in your plugin.
 - Open up an issue on the tracker if you think a function should be added.
@@ -77,7 +63,10 @@ class LoginTasks implements Listener{
      }
    }
    public function forceActivatexAuth(){
-     //TODO
+     if($this->status !== null && $this->status !== "enabled" && $this->status !== "failed"){
+     	$this->status = "enabled";
+     	return true;
+     }
    }
 }
   
