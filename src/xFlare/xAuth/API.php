@@ -8,7 +8,8 @@
  /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
                                         
                                         */
-#Stops people from doing stuff, when not logged in or registered.
+#Provides plugins with a nice API so plugins & server owners have more control.
+#Our goal is to add an API for everything.
 namespace xFlare\xAuth;
 use pocketmine\event\Listener;
 use pocketmine\Player;
