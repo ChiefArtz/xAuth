@@ -41,12 +41,11 @@ use pocketmine\event\player\PlayerItemConsumeEvent;
 class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
+        $this->message = "Please authenticate to play!";
+        $this->disable = "xAuth is disabled at this moment.";
     }
     public function onChat(PlayerChatEvent $event){
-    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
-    		$event->setCancelled(true);
-    	}
-    	elseif($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 1 && $this->plugin->chatprotection[$event->getPlayer()->getId] === $this->plugin->proccessPassword($message, 1)){
+    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 1 && $this->plugin->chatprotection[$event->getPlayer()->getId] === $this->plugin->proccessPassword($message, 1)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -62,7 +61,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onCommand(PlayerCommandPreprocessEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowCommand !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowCommand !== true && substr($event->getMessage(), 0, 1) === '/'){ 
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
