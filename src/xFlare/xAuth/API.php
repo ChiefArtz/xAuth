@@ -10,7 +10,9 @@
                                         */
 #Provides plugins with a nice API so plugins & server owners have more control.
 #Our goal is to add an API for everything.
+
 namespace xFlare\xAuth;
+
 use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
@@ -37,7 +39,8 @@ class LoginTasks implements Listener{
       return $this->plugin->loginmanager[$player->getId()];
     }
     
-    #Important! Always check the status on your plugins or xAuth may not function right.    
+    #Important! Always check the status on your plugins or xAuth may not function right.
+    #Returns a true or false value.
     public function xAuthStatus(){
       if($this->plugin->status === "enabled"){
         return true;
@@ -47,11 +50,12 @@ class LoginTasks implements Listener{
       }
    }
    
-   #Returns an array of config options, NOTE: It will not return MySQL details for your safty.
+   #Returns an array of config options, NOTE: It will not return MySQL details for your security.
    public function sendConfigOptios(){
    }
    
    #Disables xAuth..Dangerous since auth will turn off, but safe-mode will force-fully kick in.
+   #Returns false if already disabled, returns true if it has been disabled.
    public function disablexAuth(){
      if($this->plugin->status === "disabled"){
        return false; //If plugin is already disabled..
