@@ -83,7 +83,7 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    $this->status = "enabled"; //Assuming errors have been fixed.
+    $this->registerConfigOptions();
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
@@ -96,7 +96,10 @@ class Loader extends PluginBase implements Listener{
     if($this->getConfig()->get("hotbar-message") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
     }
-    $this->registerConfigOptions();
+    if($this->api === true){ //Register API :)
+      $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
+    }
+    $this->status = "enabled"; //Assuming errors have been fixed.
     if($status === 1){
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
     }
@@ -142,6 +145,7 @@ class Loader extends PluginBase implements Listener{
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
     $this->safemode = $this->getConfig()->get("safe-mode");
     $this->logger = $this->getConfig()->get("log-xauth");
+    $this->api = $this->getConfig()->get("enable-api");
     if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
