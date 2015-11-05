@@ -27,6 +27,9 @@ enable-pass-changing: true
 #Block simple passwords?
 simple-passcode-blocker: true
 
+#Require email? Will force players to use an email to register.
+require-email: false
+
 #------------[Authenticatin Settings]------------#
 
 
