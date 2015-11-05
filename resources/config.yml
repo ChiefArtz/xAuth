@@ -62,8 +62,13 @@ registered: "Please register this usernamer"
 already-registered: "This username is already registered"
 #----------------[Messages]----------------#
 
-#Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything? (Prevents impersonators)
+#Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
+#Protects you against bad plugins that try to use the API for bad reasons.
 safe-mode: true
+
+#API allows other plugins to access xAuth's data with ease, enabling it will register the API class.
+#This option is safe, but use safe-mode if you plan to enable it!
+enable-api: true
 
 #Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
