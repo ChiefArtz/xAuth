@@ -8,7 +8,7 @@
 autentication-type: YML
 
 # IP auth or type password everytime you join? 
-ip-auth: false
+ip-auth: true
 
 # Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
 # Only for MySQL
@@ -35,7 +35,7 @@ require-email: false
 
 #------------[Auth Events]------------#
 # What to allow/disallow when not authenticated?
-allow-movment: false
+allow-movment: true
 allow-commands: false
 allow-block-placing: false
 allow-block-breaking: false
