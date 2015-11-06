@@ -22,7 +22,7 @@ use pocketmine\Server;
 - Here you can access some basic xAuth data so you can use it in your plugin.
 - Open up an issue on the tracker if you think a function should be added.
 */
-class LoginTasks implements Listener{
+class API implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
         $this->message = "Please authenticate to play!";
