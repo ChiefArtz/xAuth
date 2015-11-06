@@ -45,7 +45,8 @@ class LoginTasks implements Listener{
         $this->disable = "xAuth is disabled at this moment.";
     }
     public function onChat(PlayerChatEvent $event){
-    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 1 && $this->plugin->chatprotection[$event->getPlayer()->getId] === $this->plugin->proccessPassword($message, 1)){
+    	$message = $event->getMessage();
+    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->chatprotection[$event->getPlayer()->getId()] === $this->plugin->proccessPassword($message, 1)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
