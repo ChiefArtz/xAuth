@@ -77,7 +77,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onMove(PlayerMoveEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowMove !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowMoving !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
