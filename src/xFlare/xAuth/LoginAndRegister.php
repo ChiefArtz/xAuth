@@ -32,11 +32,8 @@ class LoginAndRegister implements Listener{
         $this->plugin = $plugin;
     }
     public function onJoin(PlayerJoinEvent $event){
-    	if($this->status === "enabled"){
+    	if($this->plugin->status === "enabled"){
     		$event->getPlayer()->sendMessage("[xAuth] This server is protected by xAuth.");
-    	}
-    	elseif($this->status !== "enabled" and $this->isOp($event->getPlayer())){
-    		$event->getPlayer()->sendMessage("[xAuth] There is an error, and xAuth has been disabled!");
     	}
     	if($this->plugin->status === "enabled" and $this->plugin->provider === "yml"){
             $myuser = new Config($this->plugin->getDataFolder() . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
