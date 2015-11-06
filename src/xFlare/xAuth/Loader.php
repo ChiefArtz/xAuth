@@ -74,6 +74,16 @@ class Loader extends PluginBase implements Listener{
       $this->updateConfig($myoptions);
       return;
     }
+    if(!file_exists($this->plugin->getDataFolder() . "players/") && $this->provider === "yml"){
+        $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
+				@mkdir($this->plugin->getDataFolder() . "players/");			
+    }
+    elseif($this->provider === "yml" && !file_exists($this->plugin->getDataFolder() . "players/")){
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCannot create players folder§7!");
+      $errors++;
+      $this->status = "failed";
+      $this->getServer()->shutdown();
+    }
     if($this->provider !== "mysql" && $this->provider !== "yml"){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
