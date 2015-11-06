@@ -16,13 +16,13 @@ class AuthMessage extends PluginTask{
         if($this->owner->status === "enabled"){
             foreach($this->owner->getServer()->getOnlinePlayers() as $p){
                 if($this->owner->loginmanager[$p->getId()] === 0){
-                    $p->sendTip("xAuth: Please authenticate!");
+                    $p->sendTip("§axAuth§7: §dPlease authenticate§7!");
                 }
             } 
         }
         elseif($this->owner->safemode === true && $this->owner->status !== "enabled"){
             foreach($this->owner->getServer()->getOnlinePlayers() as $p){
-                $p->sendTip("[xAuth] xAuth is disabled, please check console!");
+                $p->sendTip("§axAuth§7: §axAuth §3is §cdisabled§7, §3please check §cconsole§7!");
             }
         }
     }
