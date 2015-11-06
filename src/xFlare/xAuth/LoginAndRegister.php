@@ -112,7 +112,7 @@ class LoginAndRegister implements Listener{
     	if($type === 0 && $this->plugin->status === "enabled"){
     		if(strlen($password) > 5){
     			$player->sendMessage("[xAuth] Your password was too short!");
-    			return
+    			return;
     		}
     		if(strlen($password) < 15){
     			$player->sendMessage("[xAuth] Your password was too long!");
