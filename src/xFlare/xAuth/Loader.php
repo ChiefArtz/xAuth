@@ -54,7 +54,7 @@ class Loader extends PluginBase implements Listener{
   */
   public function onDisable(){
     if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
-      $this->getServer()->getLogger()->info("§7[dxAuth§7] §3Total errors during session: $this->totalerrors§7.");
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Total errors during session§7:§c $this->totalerrors");
     }
     if($this->safemode === true){
       //Set config data.
@@ -99,7 +99,6 @@ class Loader extends PluginBase implements Listener{
     if($this->api === true){ //Register API :)
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
-    $this->status = "enabled"; //Assuming errors have been fixed.
     if($status === 1){
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
     }
@@ -115,11 +114,11 @@ class Loader extends PluginBase implements Listener{
     }
     if($this->status === null){
       $this->status = "enabled";
-      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has been §aenabled§7.");
+      $this->getServer()->getLogger()->info("§7> §axAuth §3has been §aenabled§7.");
     }
     elseif($this->status !== null){
       $this->status = "failed";
-      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3has failed to start up§7.");
+      $this->getServer()->getLogger()->info("§7> §axAuth §3has failed to start up§7. (§c Error: $this->status §7)");
     }
   }
   public function updateConfig($myoptions){
