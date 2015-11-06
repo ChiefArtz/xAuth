@@ -16,7 +16,7 @@ class AuthMessage extends PluginTask{
         if($this->owner->status === "enabled"){
             foreach($this->owner->getServer()->getOnlinePlayers() as $p){
                 if($this->owner->loginmanager[$p->getId()] === 0){
-                    $p->sendTip("xAuth: Please authenticate, follow the directions in chat.");
+                    $p->sendTip("xAuth: Please authenticate!");
                 }
             } 
         }
