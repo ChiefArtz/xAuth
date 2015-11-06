@@ -43,7 +43,7 @@ class Loader extends PluginBase implements Listener{
       $this->totalerrors++;
       $this->async = false;
     }
-    if($this->async !== true && $this->status !== "enabled"){
+    if($this->async !== true && $this->status !== "enabled" && $this->provider === "mysql"){
     // $this->database = mysql; Later.
     }
   }
