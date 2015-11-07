@@ -148,7 +148,7 @@ class Loader extends PluginBase implements Listener{
     }
   }
   public function registerConfigOptions(){ //Config -> Object for less lag.
-    $this->allowMoving = $this->getConfig()->get("allow-moving");
+    $this->allowMoving = $this->getConfig()->get("allow-movement");
     $this->allowPlace = $this->getConfig()->get("allow-block-placing");
     $this->allowBreak = $this->getConfig()->get("allow-block-breaking");
     $this->allowCommand = $this->getConfig()->get("allow-commands");
