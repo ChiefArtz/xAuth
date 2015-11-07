@@ -35,7 +35,7 @@ require-email: false
 
 #------------[Auth Events]------------#
 # What to allow/disallow when not authenticated?
-allow-movment: false
+allow-movement: false
 allow-commands: false
 allow-block-placing: false
 allow-block-breaking: false
