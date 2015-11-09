@@ -8,9 +8,6 @@
  /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
                                         
                                         */
-
-
-#Loader for xAuth, loads up everything.
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
@@ -18,9 +15,12 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-
+/*
+- Loads up xAuth files.
+- xAuth is user-friendly and checks for errors.
+*/
 class Loader extends PluginBase implements Listener{
-  public $loginmanager = []; //Idividual player login statuses using arrays (sessions).
+  public $loginmanager = [];
   public $chatprotection = [];
   public $proccessmanager = [];
   public function onEnable(){
@@ -30,13 +30,13 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getLogger()->info("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
-    $this->status = null; //Keeps track of auth status.
+    $this->status = null; //Plugin starting up...
     $this->memorymanagerdata = 0;
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->totalerrors = 0;
     $this->checkForConfigErrors(0);
     $this->async = $this->getConfig()->get("use-async");
-    if($this->async !== true || $this->async !== false){
+    if($this->async !== true && $this->async !== false){
       $this->totalerrors++;
       $this->async = false;
     }
@@ -44,23 +44,12 @@ class Loader extends PluginBase implements Listener{
     // $this->database = mysql; Later.
     }
   }
-  /*
-  - Status "failed" means plugin is disabled.
-  - Status "enabled" means plugin has successfuly started, and is running.
-  - Status "null" means that plugin is starting up.
-  */
   public function onDisable(){
     if($this->status === "enabled" && $this->debug === true && $this->totalerrors !== 0){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Total errors during session§7:§c $this->totalerrors");
     }
-    if($this->safemode === true){
-      //Set config data.
-      if($this->status === "enabled" && $this->safemode === true){
-        //Insert all data to config
-      }
-    }
   }
-  public function checkForConfigErrors($status){ //Will try to fix errors, and repair config to prevent erros further down.
+  public function checkForConfigErrors($status){ //Checks for errors, ect.
     $errors = 0;
     if($this->getConfig()->get("version") !== $this->version){
       $this->status = "failed";
@@ -70,9 +59,10 @@ class Loader extends PluginBase implements Listener{
       $this->updateConfig($myoptions);
       return;
     }
+    $this->registerConfigOptions();
     if(!file_exists($this->getDataFolder() . "players/") && $this->provider === "yml"){
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
-	@mkdir($this->getDataFolder() . "players/");			
+	      @mkdir($this->getDataFolder() . "players/");			
     }
     elseif($this->provider === "yml" && !file_exists($this->getDataFolder() . "players/")){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCannot create players folder§7!");
@@ -89,22 +79,6 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->set("data-checks", false);
       $this->getConfig()->save();
       $errors++;
-    }
-    $this->registerConfigOptions();
-    $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
-    $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
-    $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
-    if($this->getConfig()->get("database-checks") === true){
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
-    }
-    if($this->provider === "yml"){
-      $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
-    }
-    if($this->getConfig()->get("hotbar-message") === true){
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
-    }
-    if($this->api === true){ //Register API :)
-      $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
     if($status === 1){
       $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
@@ -124,12 +98,33 @@ class Loader extends PluginBase implements Listener{
         $this->getServer()->getLogger()->info("§7[§ax§dAuth§7] " . $this->totalerrors . " §cerrors have been found§7.\n§3We tried to fix it§7, §3but just in case review your config settings§7!");
     }
     if($this->status === null){
+      $this->registerClasses();
       $this->status = "enabled";
       $this->getServer()->getLogger()->info("§7> §axAuth §3has been §aenabled§7.");
     }
     elseif($this->status !== null){
       $this->status = "failed";
       $this->getServer()->getLogger()->info("§7> §axAuth §3has failed to start up§7. (§c Error: $this->status §7)");
+    }
+  }
+  public function registerClasses(){
+    $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
+    $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
+    if($this->getConfig()->get("database-checks") === true){
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
+    }
+    if($this->provider === "yml"){
+      $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
+    }
+    if($this->getConfig()->get("hotbar-message") === true){
+      $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
+    }
+    if($this->api){
+      $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
+    }
+    if($this->logger){
+      $this->getServer()->getPluginManager()->registerEvents(new xAuthLogger($this), $this);
     }
   }
   public function updateConfig($myoptions){
