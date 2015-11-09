@@ -23,7 +23,7 @@ class xAuthLogger implements Listener{
         $this->plugin = $plugin;
   }
   public function onWrite($exception){
-    $file = $this->plugin->getDataFolder() . "authlogs.log/";
+    $logger = $this->plugin->getDataFolder() . "authlogs.log/";
     if($this->enabled === true ){
       $prefix = "[Critical]";
     }
