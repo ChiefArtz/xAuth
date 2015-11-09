@@ -22,7 +22,17 @@ class xAuthLogger implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
   }
-  public function onWrite(){
-    #Log things
+  public function onWrite($exception){
+    $file = $this->plugin->getDataFolder() . "authlogs.log/";
+    if($this->enabled === true ){
+      $prefix = "[Critical]";
+    }
+    if($this->enabled === "failed"){
+      $prefix = "[Failure]";
+    }
+    if($this->enabled === null){
+      $prefix = "[PreloadError]";
+    }
+    file_put_contents($logger, $exception);
   }
 }
