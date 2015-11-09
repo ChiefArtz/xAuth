@@ -74,7 +74,7 @@ class Loader extends PluginBase implements Listener{
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
 	@mkdir($this->getDataFolder() . "players/");			
     }
-    elseif($this->provider === "yml" && !file_exists($this->plugin->getDataFolder() . "players/")){
+    elseif($this->provider === "yml" && !file_exists($this->getDataFolder() . "players/")){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCannot create players folder§7!");
       $errors++;
       $this->status = "failed";
