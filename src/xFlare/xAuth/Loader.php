@@ -116,7 +116,7 @@ class Loader extends PluginBase implements Listener{
     }
     if($this->debug === true or $this->logger === true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating §axAuth §elogger§7...");
-      $this->xauthlogger = new Config($this->getDataFolder() . "authlogger.txt", Config::ENUM, array()); //Log errors
+      $this->xauthlogger = new Config($this->getDataFolder() . "authlogsr.log", Config::ENUM, array()); //Log errors
     }
     $this->totalerrors = $this->totalerrors + $errors;
     if($errors !== 0 || $this->totalerrors !== 0){
