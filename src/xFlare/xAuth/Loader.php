@@ -36,10 +36,6 @@ class Loader extends PluginBase implements Listener{
     $this->totalerrors = 0;
     $this->checkForConfigErrors(0);
     $this->async = $this->getConfig()->get("use-async");
-    if($this->debug === true){
-      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Logger file has been created.");
-      $this->xauthlogger = new Config($this->getDataFolder() . "authlogger.txt", Config::ENUM, array()); //Log errors
-    }
     if($this->async !== true || $this->async !== false){
       $this->totalerrors++;
       $this->async = false;
@@ -117,6 +113,10 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->set("log-xauth", true);
       $this->getConfig()->save();
       $errors++;
+    }
+    if($this->debug === true or $this->logger === true){
+      $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating §axAuth §elogger§7...");
+      $this->xauthlogger = new Config($this->getDataFolder() . "authlogger.txt", Config::ENUM, array()); //Log errors
     }
     $this->totalerrors = $this->totalerrors + $errors;
     if($errors !== 0 || $this->totalerrors !== 0){
