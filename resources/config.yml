@@ -7,7 +7,7 @@
 # YML or MySQL?
 autentication-type: YML
 
-# Authenticate players with there IP address?
+# Authenticate players with they IP address?
 ip-auth: false
 
 # Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
